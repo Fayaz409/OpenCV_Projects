@@ -10,7 +10,10 @@ class HandDetector():
         self.detectionCon = detectionCon
         self.trackCon = trackCon
         self.mpHands = mp.solutions.hands
-        self.hands = self.mpHands.Hands(self.mode, self.maxHands, self.detectionCon, self.trackCon)
+        self.hands = self.mpHands.Hands(static_image_mode=self.mode,
+                                        max_num_hands=self.maxHands,
+                                        min_detection_confidence= self.detectionCon,
+                                         min_tracking_confidence= self.trackCon)
         self.mpDraw = mp.solutions.drawing_utils
 
     def findHands(self, img, draw=True):
@@ -45,7 +48,7 @@ detector = HandDetector()
 
 # Start video capture from webcam
 cap = cv.VideoCapture(0)
-
+pTime=0
 while True:
     # Read a frame from the video
     success, img = cap.read()
@@ -57,8 +60,8 @@ while True:
     lmList = detector.position(img, draw=False)
 
     # Print the coordinates of the 4th landmark (index fingertip) if hand is detected
-    if len(lmList) != 0:
-        print(lmList[4])
+    # if len(lmList) != 0:
+    #     print(lmList[4])
 
     # Calculate and display FPS
     cTime = time.time()
