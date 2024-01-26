@@ -40,7 +40,7 @@ class HandDetector():
                 lmList.append([idx, cx, cy])
                 # Draw circles on the landmarks if draw is True
                 if draw:
-                    cv.circle(img, (cx, cy), 15, (200, 200, 0), cv.FILLED)
+                    cv.circle(img, (cx, cy), 6, (200, 200, 0), cv.FILLED)
         return lmList
     
 # Create a HandDetector object
@@ -48,33 +48,38 @@ detector = HandDetector()
 
 # Start video capture from webcam
 cap = cv.VideoCapture(0)
-pTime=0
-while True:
+
+def DetectHand(cap=cap,detector=detector):
+    pTime=0
+    while True:
     # Read a frame from the video
-    success, img = cap.read()
+       success, img = cap.read()
 
     # Detect hands and draw landmarks
-    img = detector.findHands(img)
+       img = detector.findHands(img)
 
     # Get hand landmark positions
-    lmList = detector.position(img, draw=False)
-
+       lmList = detector.position(img)
+    #    print(lmList)
+       
     # Print the coordinates of the 4th landmark (index fingertip) if hand is detected
     # if len(lmList) != 0:
     #     print(lmList[4])
 
     # Calculate and display FPS
-    cTime = time.time()
-    fps = 1 / (cTime - pTime)
-    pTime = cTime
-    cv.putText(img, str(int(fps)), (20, 100), cv.FONT_HERSHEY_COMPLEX, 2, (0, 255, 255), 3)
+       cTime = time.time()
+       fps = 1 / (cTime - pTime)
+       pTime = cTime
+       cv.putText(img, str(int(fps)), (20, 100), cv.FONT_HERSHEY_COMPLEX, 2, (0, 255, 255), 3)
 
     # Display the image with hand landmarks
-    cv.imshow('Fayaz', img)
+       cv.imshow('Fayaz', img)
 
     # Exit if 'q' key is pressed
-    if cv.waitKey(1) == ord('q'):
-        break
+       if cv.waitKey(1) == ord('q'):
+           break
+# DetectHand()
+
 
 
 
