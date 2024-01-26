@@ -5,7 +5,7 @@ Excited to dive into this project? Here's a quick guide to get you up and runnin
 **1. Install Dependencies:**
 
 Before we jump in, make sure you have these libraries installed:
-
+* **pycaw:**  `pip install pycaw`
 * **mediapipe:** `pip install mediapipe`
 * **opencv-python:** `pip install opencv-python`
 
